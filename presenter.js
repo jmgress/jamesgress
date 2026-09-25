@@ -111,16 +111,13 @@
     applyState({ index: nextIndex });
   };
 
-  const loadSlides = async () => {
-    const response = await fetch(audienceUrl, { cache: 'no-store' });
-    if (!response.ok) {
-      throw new Error(`Unable to load audience deck: ${response.status}`);
+  const loadSlideSummaries = () => {
+    const frameDocument = currentFrame?.contentDocument;
+    if (!frameDocument) {
+      return false;
     }
 
-    const html = await response.text();
-    const parser = new DOMParser();
-    const documentFragment = parser.parseFromString(html, 'text/html');
-    slideSummaries = Array.from(documentFragment.querySelectorAll('.slide')).map((slide, index) => ({
+    slideSummaries = Array.from(frameDocument.querySelectorAll('.slide')).map((slide, index) => ({
       index,
       title: slide.dataset.title || slide.querySelector('h1, h2, h3')?.textContent?.trim() || `Slide ${index + 1}`,
       preview: stripMarkup(slide.querySelector('p, li')?.outerHTML || slide.textContent || '').slice(0, 160),
@@ -128,8 +125,12 @@
     }));
 
     const first = slideSummaries[0];
-    applyState({ totalSlides: slideSummaries.length || 1, title: first?.title || currentState.title, notes: first?.notes || currentState.notes });
-    renderState();
+    applyState({
+      totalSlides: slideSummaries.length || 1,
+      title: first?.title || currentState.title,
+      notes: first?.notes || currentState.notes,
+    });
+    return true;
   };
 
   channel?.addEventListener('message', (event) => {
@@ -186,22 +187,33 @@
   setInterval(updateTimer, 1000);
   updateTimer();
 
-  loadSlides()
-    .then(() => {
-      channel?.postMessage({ type: 'request-state' });
-      try {
-        const stored = localStorage.getItem(storageKey);
-        if (stored) {
-          applyState(JSON.parse(stored));
-        }
-      } catch {
-        // Ignore storage failures.
+  const hydrateFromStoredState = () => {
+    try {
+      const stored = localStorage.getItem(storageKey);
+      if (stored) {
+        applyState(JSON.parse(stored));
       }
-    })
-    .catch(() => {
+    } catch {
+      // Ignore storage failures.
+    }
+  };
+
+  const initializePresenter = () => {
+    if (!loadSlideSummaries()) {
       if (nextCard) {
         nextCard.innerHTML = '<strong>Preview unavailable</strong><p>Open the audience view to continue.</p>';
       }
+      hydrateFromStoredState();
       channel?.postMessage({ type: 'request-state' });
-    });
+      return;
+    }
+
+    hydrateFromStoredState();
+    channel?.postMessage({ type: 'request-state' });
+  };
+
+  currentFrame?.addEventListener('load', initializePresenter, { once: true });
+  if (currentFrame?.contentDocument?.readyState === 'complete') {
+    initializePresenter();
+  }
 })();
