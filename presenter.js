@@ -9,7 +9,7 @@
   const resetButton = document.querySelector('[data-presenter-reset]');
   const prevButton = document.querySelector('[data-action="prev"]');
   const nextButton = document.querySelector('[data-action="next"]');
-  const audienceUrl = new URL('index.html', window.location.href);
+  const audienceUrl = new URL('index.html', `${window.location.origin}${window.location.pathname.replace(/[^/]+$/, '')}`);
   let currentState = { index: 0, totalSlides: 1, title: 'Slide 1', notes: '' };
   let slideSummaries = [];
   let startedAt = Date.now();
@@ -66,7 +66,10 @@
     }
 
     if (currentFrame) {
-      currentFrame.src = `${audienceUrl.pathname}${audienceUrl.search ? `${audienceUrl.search}&` : '?'}embed=1#slide-${currentState.index + 1}`;
+      const previewUrl = new URL(audienceUrl);
+      previewUrl.searchParams.set('embed', '1');
+      previewUrl.hash = `slide-${currentState.index + 1}`;
+      currentFrame.src = previewUrl.toString();
     }
 
     const next = previewText(currentState.index + 1);
