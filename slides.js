@@ -93,12 +93,12 @@
   };
 
   const syncHistory = (replace = false) => {
-    if (window.location.protocol === 'file:' || typeof history.pushState !== 'function') {
+    const method = replace ? 'replaceState' : 'pushState';
+    if (window.location.protocol === 'file:' || typeof history[method] !== 'function') {
       return;
     }
 
     const state = slideState(currentIndex);
-    const method = replace ? 'replaceState' : 'pushState';
     const nextUrl = `${window.location.pathname}${window.location.search}${state.hash}`;
     history[method](state, '', nextUrl);
   };

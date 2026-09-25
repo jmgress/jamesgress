@@ -201,6 +201,7 @@
     }
 
     if (!loadSlideSummaries()) {
+      presenterInitialized = true;
       if (nextCard) {
         nextCard.innerHTML = '<strong>Preview unavailable</strong><p>Open the audience view to continue.</p>';
       }
