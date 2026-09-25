@@ -48,7 +48,7 @@ Use relative URLs for assets and links, and keep the audience deck rooted at `in
 - `Previous` / `Next` buttons
 - Keyboard: `←`, `→`, `Page Up`, `Page Down`, `Home`, `End`, and `Space`
 - Touch swipe on phones and tablets
-- Deep links like `#slide-2`
+- Deep links like `#slide-1`
 - Browser back/forward history integration
 
 ### Presenter view
