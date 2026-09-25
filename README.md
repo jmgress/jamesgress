@@ -39,7 +39,7 @@ Each slide can include optional speaker notes inside:
 </aside>
 ```
 
-Use relative URLs for assets and links so the deck works both locally and from a GitHub Pages project subpath.
+Use relative URLs for assets and links, and keep the audience deck rooted at `index.html`, so the deck continues to work both locally and from a GitHub Pages project subpath.
 
 ## Controls
 

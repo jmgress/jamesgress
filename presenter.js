@@ -110,6 +110,10 @@
 
   const loadSlides = async () => {
     const response = await fetch(audienceUrl, { cache: 'no-store' });
+    if (!response.ok) {
+      throw new Error(`Unable to load audience deck: ${response.status}`);
+    }
+
     const html = await response.text();
     const parser = new DOMParser();
     const documentFragment = parser.parseFromString(html, 'text/html');
