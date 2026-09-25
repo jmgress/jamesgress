@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%276%27 fill=%27%2378583a%27/%3E%3Ctext x=%2716%27 y=%2721%27 text-anchor=%27middle%27 font-family=%27Arial,sans-serif%27 font-size=%2716%27 fill=%27white%27%3EJG%3C/text%3E%3C/svg%3E" />
+    <title>James Gress Presenter View</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script defer src="presenter.js"></script>
+  </head>
+  <body class="presenter-body">
+    <main class="presenter-layout">
+      <aside class="presenter-sidebar">
+        <div class="presenter-meta">
+          <strong data-presenter-position>Slide 1 of 2</strong>
+          <div class="presenter-timer" data-presenter-timer>00:00</div>
+          <button class="presenter-reset" type="button" data-presenter-reset>Reset timer</button>
+        </div>
+        <section class="presenter-notes">
+          <h2>Speaker notes</h2>
+          <div class="presenter-notes-content" data-presenter-notes>Waiting for notes…</div>
+        </section>
+      </aside>
+
+      <section class="presenter-stage">
+        <div class="presenter-stack">
+          <div class="presenter-panel">
+            <h2>Current slide</h2>
+            <iframe class="presenter-frame" title="Current slide preview" data-presenter-current></iframe>
+          </div>
+          <div class="presenter-preview">
+            <h2>Next slide</h2>
+            <div class="presenter-preview-card" data-presenter-next>
+              <strong>Loading…</strong>
+              <p>Waiting for the current slide state.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="presenter-nav">
+          <div class="presenter-nav-group">
+            <button type="button" data-action="prev">Previous</button>
+            <button type="button" data-action="next">Next</button>
+          </div>
+          <a class="presenter-link" href="index.html" target="audience">Open audience view</a>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

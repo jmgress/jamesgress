@@ -1,67 +1,66 @@
-# Marp Slides Template
+# James Gress slide deck
 
-[Use this template!](https://github.com/codebytes/marp-slides-template/generate)
+This repository now hosts a dependency-free HTML slide deck for GitHub Pages. The deck is authored directly in semantic HTML, styled with plain CSS, and navigated with a small vanilla JavaScript controller.
 
-Create a Marp presentation site that can be built and published on [GitHub Pages] using this minimal template. The site features:
+## Files
 
-- Marp integration
-- A GitHub Pages / Actions workflow for build and publish ([See a preview](http://chris-ayers.com/marp-slides-template/))
-- A DevContainer/CodeSpace configuration with Marp and Markdown preview extensions
-- Chrome installation for PDF and PowerPoint slide creation on Linux
+- `index.html` - audience deck
+- `styles.css` - shared audience and presenter styling
+- `slides.js` - deck navigation, deep-linking, history sync, and presenter messaging
+- `presenter.html` - presenter console
+- `presenter.js` - presenter timer, notes, previews, and synchronized navigation
+- `assets/00-jamesgress.png` - portrait asset
 
-## Customization
+## Local preview
 
-Feel free to customize the sites created with this template as you like!
+Because the presenter console fetches the audience deck, serve the repository through a simple local web server instead of opening the files directly from disk.
 
-## Getting Started
+### Python
 
-1. Click "[use this template]" to create a new site.
-2. Update the content of `slides/Slides.md` with your own presentation.
-
-## Custom Themes
-
-This template includes four custom themes in the `slides/themes` folder:
-
-- custom
-- custom-default (based on the built-in default theme)
-- custom-gaia (based on the built-in gaia theme)
-- custom-uncover (based on the built-in uncover theme)
-
-To use a custom theme, edit the relevant css file and add its reference in the front matter of `Slides.md`. For example, to use `custom-default` add the following to the `Slides.md` front matter:
-
-```markdown
----
-marp: true
-theme: custom-default
----
+```bash
+cd /home/runner/work/jamesgress/jamesgress
+python3 -m http.server 8000
 ```
 
-For additional themes, add them to the devcontainer and follow the [Marp custom theme documentation](https://marpit.marp.app/theme-css).
+Then open:
 
-## Publishing on GitHub Pages
+- `http://localhost:8000/index.html`
+- `http://localhost:8000/presenter.html`
 
-1. In your GitHub repo, navigate to `Settings` > `Pages` > `Build and deployment`.
-2. Select `Source`: `GitHub Actions`.
-3. If any Actions failed, go to the `Actions` tab and click on `Re-run jobs`.
+## Authoring
 
-## Local Build and Preview
+Slides are defined as `<section class="slide">` elements in `/home/runner/work/jamesgress/jamesgress/index.html`.
 
-1. Install [Visual Studio Code](https://code.visualstudio.com/).
-2. Install the [Marp for VS Code extension](https://marketplace.visualstudio.com/items?itemName=marp-team.marp-vscode).
-3. Open `slides/Slides.md` in VS Code.
+Each slide can include optional speaker notes inside:
 
-## Licensing and Attribution
+```html
+<aside class="speaker-notes" hidden>
+  <p>Private presenter note</p>
+</aside>
+```
 
-This repository is licensed under the [MIT License]. Reuse or extend the code as you wish, but include the original license. The deployment GitHub Actions workflow is based on GitHub's starter workflows.
+Use relative URLs for assets and links so the deck works both locally and from a GitHub Pages project subpath.
 
-## Resources
+## Controls
 
-- [Use this template](https://github.com/codebytes/marp-slides-template/generate)
+### Audience view
 
-- GitHub Pages: [https://docs.github.com/en/pages](https://docs.github.com/en/pages)
+- `Previous` / `Next` buttons
+- Keyboard: `←`, `→`, `Page Up`, `Page Down`, `Home`, `End`, and `Space`
+- Touch swipe on phones and tablets
+- Deep links like `#slide-2`
+- Browser back/forward history integration
 
-- CommonMark markdown syntax: [https://commonmark.org/help/](https://commonmark.org/help/)
+### Presenter view
 
-- Marp Official Repository: [https://github.com/marp-team/marp](https://github.com/marp-team/marp)
-- Marp Official Documentation: [https://marpit.marp.app/markdown](https://marpit.marp.app/markdown)
-- Marp for VS Code Documentation: [https://marketplace.visualstudio.com/items?itemName=marp-team.marp-vscode](https://marketplace.visualstudio.com/items?itemName=marp-team.marp-vscode)
+- Live current-slide preview
+- Next-slide preview
+- Speaker notes for the active slide
+- Elapsed timer with reset
+- Remote navigation that stays synchronized with the audience deck
+
+## GitHub Pages setup
+
+1. In GitHub, open `Settings` → `Pages`.
+2. Set **Source** to **GitHub Actions**.
+3. The workflow in `.github/workflows/pages.yml` deploys the static site directly with no build step.
