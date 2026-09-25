@@ -11,6 +11,7 @@
   const nextButton = document.querySelector('[data-action="next"]');
   const storageKey = 'jamesgress-slide-state';
   const totalSlides = slides.length;
+  const advanceKeys = new Set(['ArrowRight', 'PageDown', ' ', 'Space', 'Spacebar']);
   let currentIndex = 0;
 
   document.body.dataset.embed = String(isEmbed);
@@ -138,7 +139,7 @@
       }
     }
 
-    if (['ArrowRight', 'PageDown', ' '].includes(event.key)) {
+    if (advanceKeys.has(event.key)) {
       event.preventDefault();
       goTo(currentIndex + 1);
     } else if (['ArrowLeft', 'PageUp'].includes(event.key)) {

@@ -13,6 +13,8 @@
   let currentState = { index: 0, totalSlides: 1, title: 'Slide 1', notes: '' };
   let slideSummaries = [];
   let startedAt = Date.now();
+  let presenterInitialized = false;
+  const advanceKeys = new Set(['ArrowRight', 'PageDown', ' ', 'Space', 'Spacebar']);
 
   const clampIndex = (value) => Math.min(Math.max(value, 0), Math.max((currentState.totalSlides || slideSummaries.length || 1) - 1, 0));
 
@@ -37,11 +39,6 @@
       .replaceAll('"', '&quot;')
       .replaceAll("'", '&#39;');
 
-  const stripMarkup = (value) => {
-    const wrapper = document.createElement('div');
-    wrapper.innerHTML = value;
-    return wrapper.textContent?.trim() || '';
-  };
 
   const previewText = (index) => {
     const slide = slideSummaries[index];
@@ -120,7 +117,7 @@
     slideSummaries = Array.from(frameDocument.querySelectorAll('.slide')).map((slide, index) => ({
       index,
       title: slide.dataset.title || slide.querySelector('h1, h2, h3')?.textContent?.trim() || `Slide ${index + 1}`,
-      preview: stripMarkup(slide.querySelector('p, li')?.outerHTML || slide.textContent || '').slice(0, 160),
+      preview: (slide.querySelector('p, li')?.textContent || slide.textContent || '').trim().slice(0, 160),
       notes: slide.querySelector('.speaker-notes')?.textContent?.trim() || '',
     }));
 
@@ -175,7 +172,7 @@
       }
     }
 
-    if (event.key === 'ArrowRight' || event.key === 'PageDown' || event.key === ' ') {
+    if (advanceKeys.has(event.key)) {
       event.preventDefault();
       navigate(currentState.index + 1);
     } else if (event.key === 'ArrowLeft' || event.key === 'PageUp') {
@@ -199,6 +196,10 @@
   };
 
   const initializePresenter = () => {
+    if (presenterInitialized) {
+      return;
+    }
+
     if (!loadSlideSummaries()) {
       if (nextCard) {
         nextCard.innerHTML = '<strong>Preview unavailable</strong><p>Open the audience view to continue.</p>';
@@ -208,12 +209,14 @@
       return;
     }
 
+    presenterInitialized = true;
     hydrateFromStoredState();
     channel?.postMessage({ type: 'request-state' });
   };
 
   currentFrame?.addEventListener('load', initializePresenter, { once: true });
-  if (currentFrame?.contentDocument?.readyState === 'complete') {
+  if (currentFrame?.contentDocument?.querySelector('.slide')) {
+    currentFrame.removeEventListener('load', initializePresenter);
     initializePresenter();
   }
 })();
