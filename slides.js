@@ -94,7 +94,8 @@
   const syncHistory = (replace = false) => {
     const state = slideState(currentIndex);
     const method = replace ? 'replaceState' : 'pushState';
-    history[method](state, '', state.hash);
+    const nextUrl = `${window.location.pathname}${window.location.search}${state.hash}`;
+    history[method](state, '', nextUrl);
   };
 
   const goTo = (index, options = {}) => {
