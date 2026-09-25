@@ -18,7 +18,7 @@ Because the presenter console fetches the audience deck, serve the repository th
 ### Python
 
 ```bash
-cd /home/runner/work/jamesgress/jamesgress
+cd <your-clone-of-jamesgress>
 python3 -m http.server 8000
 ```
 
@@ -29,7 +29,7 @@ Then open:
 
 ## Authoring
 
-Slides are defined as `<section class="slide">` elements in `/home/runner/work/jamesgress/jamesgress/index.html`.
+Slides are defined as `<section class="slide">` elements in `index.html`.
 
 Each slide can include optional speaker notes inside:
 
