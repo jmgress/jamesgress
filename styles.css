@@ -301,6 +301,7 @@ h2 {
 .presenter-notes-content {
   color: #f6f1e9;
   line-height: 1.5;
+  white-space: pre-line;
 }
 
 .presenter-stage {

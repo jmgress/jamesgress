@@ -9,7 +9,7 @@
   const resetButton = document.querySelector('[data-presenter-reset]');
   const prevButton = document.querySelector('[data-action="prev"]');
   const nextButton = document.querySelector('[data-action="next"]');
-  const audienceUrl = new URL('index.html', `${window.location.origin}${window.location.pathname.replace(/[^/]+$/, '')}`);
+  const audienceUrl = new URL('index.html', new URL('./', window.location.href));
   let currentState = { index: 0, totalSlides: 1, title: 'Slide 1', notes: '' };
   let slideSummaries = [];
   let startedAt = Date.now();
@@ -62,7 +62,7 @@
     }
 
     if (notes) {
-      notes.innerHTML = currentState.notes || '<p>No notes for this slide.</p>';
+      notes.textContent = currentState.notes || 'No notes for this slide.';
     }
 
     if (currentFrame) {
@@ -124,7 +124,7 @@
       index,
       title: slide.dataset.title || slide.querySelector('h1, h2, h3')?.textContent?.trim() || `Slide ${index + 1}`,
       preview: stripMarkup(slide.querySelector('p, li')?.outerHTML || slide.textContent || '').slice(0, 160),
-      notes: slide.querySelector('.speaker-notes')?.innerHTML.trim() || '',
+      notes: slide.querySelector('.speaker-notes')?.textContent?.trim() || '',
     }));
 
     const first = slideSummaries[0];

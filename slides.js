@@ -17,7 +17,7 @@
 
   const readNotes = (slide) => {
     const notes = slide.querySelector('.speaker-notes');
-    return notes ? notes.innerHTML.trim() : '';
+    return notes ? notes.textContent?.trim() || '' : '';
   };
 
   const slideState = (index) => {
