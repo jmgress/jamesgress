@@ -1,63 +1,22 @@
-# James Gress slide deck
+# James Gress
 
-This repository now hosts a dependency-free HTML slide deck for GitHub Pages. The deck is authored directly in semantic HTML, styled with plain CSS, and navigated with a small vanilla JavaScript controller.
+A dependency-free single-page personal site for GitHub Pages. Authored in plain HTML and CSS — no build step, no JavaScript.
 
 ## Files
 
-- `index.html` - audience deck
-- `styles.css` - shared audience and presenter styling
-- `slides.js` - deck navigation, deep-linking, history sync, and presenter messaging
-- `presenter.html` - presenter console
-- `presenter.js` - presenter timer, notes, previews, and synchronized navigation
-- `assets/00-jamesgress.png` - portrait asset
+- `index.html` — the page
+- `styles.css` — styling
+- `assets/00-jamesgress.png` — portrait asset
 
 ## Local preview
 
-Because the presenter console fetches the audience deck, serve the repository through a simple local web server instead of opening the files directly from disk.
-
-### Python
+Open `index.html` directly in a browser, or serve the folder:
 
 ```bash
-cd <your-clone-of-jamesgress>
 python3 -m http.server 8000
 ```
 
-Then open:
-
-- `http://localhost:8000/index.html`
-- `http://localhost:8000/presenter.html`
-
-## Authoring
-
-Slides are defined as `<section class="slide">` elements in `index.html`.
-
-Each slide can include optional speaker notes inside:
-
-```html
-<aside class="speaker-notes" hidden>
-  <p>Private presenter note</p>
-</aside>
-```
-
-Use relative URLs for assets and links, and keep the audience deck rooted at `index.html`, so the deck continues to work both locally and from a GitHub Pages project subpath.
-
-## Controls
-
-### Audience view
-
-- `Previous` / `Next` buttons
-- Keyboard: `←`, `→`, `Page Up`, `Page Down`, `Home`, `End`, and `Space`
-- Touch swipe on phones and tablets
-- Deep links like `#slide-1`
-- Browser back/forward history integration
-
-### Presenter view
-
-- Live current-slide preview
-- Next-slide preview
-- Speaker notes for the active slide
-- Elapsed timer with reset
-- Remote navigation that stays synchronized with the audience deck
+Then open `http://localhost:8000/`.
 
 ## GitHub Pages setup
 

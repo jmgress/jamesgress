@@ -3,52 +3,61 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%276%27 fill=%27%2378583a%27/%3E%3Ctext x=%2716%27 y=%2721%27 text-anchor=%27middle%27 font-family=%27Arial,sans-serif%27 font-size=%2716%27 fill=%27white%27%3EJG%3C/text%3E%3C/svg%3E" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%278%27 fill=%27%236366f1%27/%3E%3Ctext x=%2716%27 y=%2721%27 text-anchor=%27middle%27 font-family=%27Arial,sans-serif%27 font-size=%2715%27 font-weight=%27700%27 fill=%27white%27%3EJG%3C/text%3E%3C/svg%3E" />
     <title>James Gress</title>
+    <meta name="description" content="James Gress — FDE AI Director at Accenture." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="styles.css" />
-    <script defer src="slides.js"></script>
   </head>
   <body>
-    <main class="deck-app">
-      <div class="deck-shell">
-        <div class="stage" aria-live="polite">
-          <section class="slide" id="slide-1" data-title="James Gress">
-            <div class="slide-frame intro-slide">
-              <div class="intro-copy">
-                <p class="eyebrow">FDE AI Director / Accenture</p>
-                <h1>James Gress</h1>
-                <ul class="link-list">
-                  <li><span>LinkedIn</span> <a href="https://linkedin.com/in/jamesgress/">jamesgress</a></li>
-                  <li><span>GitHub</span> <a href="https://github.com/jmgress">jmgress</a></li>
-                  <li><a href="https://www.meetup.com/tampa-bay-generative-ai-meetup/">Tampa Bay Generative AI Meetup</a></li>
-                  <li><a href="https://www.meetup.com/tampa-devops-meetup/">Tampa Bay DevOps Meetup</a></li>
-                </ul>
-              </div>
-              <figure class="portrait-block">
-                <img src="assets/00-jamesgress.png" alt="Portrait of James Gress" />
-              </figure>
-              <footer class="slide-footer">James Gress | jamesgress.com | Director, Accenture</footer>
-            </div>
-            <aside class="speaker-notes" hidden aria-hidden="true">
-              <p>Built hundreds of prototypes</p>
-              <p>
-                Taken 10 applications to Production ranging from simple RAG to more complex Agentic
-                systems
-              </p>
-            </aside>
-          </section>
+    <main class="card">
+      <div class="card-glow" aria-hidden="true"></div>
 
-        </div>
+      <figure class="portrait">
+        <img src="assets/00-jamesgress.png" alt="Portrait of James Gress" />
+      </figure>
+
+      <div class="intro">
+        <p class="eyebrow">AI Director \ Sr FDE</p>
+        <h1>James Gress</h1>
+        <p class="tagline">
+          Building production AI — from simple RAG to complex agentic systems.
+        </p>
+
+        <ul class="links">
+          <li>
+            <a href="https://linkedin.com/in/jamesgress/">
+              <span class="link-label">LinkedIn</span>
+              <span class="link-value">jamesgress</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/jmgress">
+              <span class="link-label">GitHub</span>
+              <span class="link-value">jmgress</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.meetup.com/tampa-bay-generative-ai-meetup/">
+              <span class="link-label">Meetup</span>
+              <span class="link-value">Tampa Bay Generative AI</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.meetup.com/tampa-devops-meetup/">
+              <span class="link-label">Meetup</span>
+              <span class="link-value">Tampa Bay DevOps</span>
+            </a>
+          </li>
+        </ul>
       </div>
 
-      <nav class="deck-controls" aria-label="Slide controls">
-        <button type="button" data-action="prev" aria-label="Previous slide">Previous</button>
-        <div class="deck-status">
-          <strong data-slide-position>1 / 1</strong>
-          <a class="presenter-link" href="presenter.html" target="_blank" rel="noopener">Presenter view</a>
-        </div>
-        <button type="button" data-action="next" aria-label="Next slide">Next</button>
-      </nav>
+      <footer class="card-footer">jamesgress.com · Director, Accenture</footer>
     </main>
   </body>
 </html>
